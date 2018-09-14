@@ -1,1 +1,6 @@
+
+#binary file
 ./MPU9255_EVAL/MPU9255_EVAL
+
+#auto-save files
+*.autosave
