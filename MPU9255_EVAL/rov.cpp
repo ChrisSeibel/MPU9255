@@ -33,5 +33,5 @@ void ROV::operate()
 
 void ROV::timerInterrupt(){
     qDebug() << "timerEvent";
-    qDebug() << "acc: " << mpu->acceleration().x << " " << mpu->acceleration().y << " " << mpu->acceleration().z;
+    qDebug() << "acc: " << mpu->get_acceleration().x << " " << mpu->get_acceleration().y << " " << mpu->get_acceleration().z;
 }
