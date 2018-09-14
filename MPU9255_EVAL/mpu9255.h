@@ -16,6 +16,10 @@ public:
     vector get_acceleration() {return _acc;}
 
 private:
+    void MPU_Write(uint8_t reg, uint8_t data);
+    uint8_t MPU_Read(uint8_t reg);
+
+
     int _intPin;
     float _pitch, _roll;
     vector _acc;
