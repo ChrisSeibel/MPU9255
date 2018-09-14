@@ -3,6 +3,8 @@
 
 #include <QDebug>
 
+#include <iostream>
+
 //libraries of Qt
 #include <QObject>
 #include <QTimer>
