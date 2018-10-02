@@ -16,8 +16,8 @@ public:
     vector get_acceleration() {return _acc;}
 
 private:
-    void MPU_Write(uint8_t reg, uint8_t data);
-    uint8_t MPU_Read(uint8_t reg);
+    void MPU_Write(const uint8_t reg, const uint8_t data, const int dev = mpu_9255);
+    int8_t MPU_Read(const uint8_t reg, const int dev = mpu_9255);
 
 
     int _intPin;

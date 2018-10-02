@@ -14,6 +14,7 @@
 #include <QStringList>
 #include <QList>
 #include <QProcess>
+#include <QThread>
 
 //hardware
 #include <wiringPi.h>

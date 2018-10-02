@@ -8,14 +8,18 @@ MPU9255::MPU9255(int intPin)
 
     //reset MPU
     wiringPiI2CWriteReg8(mpu_9255, PWR_MGMT_1, 0x80);
+    QThread::msleep(10);
 
     uint8_t ID = MPU_Read(WHO_AM_I);
-    qDebug() << WHO_AM_I << ID << std::hex << ID << "\n";
+    //qDebug() << WHO_AM_I << ID << 0x73<<"\n";
+    //QTextStream out(stdout);
+    //out << "stdout works somehow" << std::hex << 0x73 << "\n";
+
     if (ID == 0x73){
         qDebug() << "MPU-9255 ready!";
     }
     else {
-        qDebug() << "[ERROR] WHO_AM_I = " << std::hex << ID << " not as expected.\n" ;
+        qDebug() << "[ERROR] WHO_AM_I = " << ID << " not as expected.\n" ;
     }
 
 
@@ -42,23 +46,21 @@ void MPU9255::readAccelerometer()
 {
     //int16_t acc_x = wiringPiI2CReadReg8(mpu_9255, ACCEL_XOUT_H) << 8 + wiringPiI2CReadReg8(mpu_9255, ACCEL_XOUT_L);
     int16_t acc_x = (MPU_Read(ACCEL_XOUT_H) << 8) | MPU_Read(ACCEL_XOUT_L);
-    int16_t acc_y = (MPU_Read(ACCEL_YOUT_H) << 8) | MPU_Read(ACCEL_YOUT_L);
-    int16_t acc_z = (MPU_Read(ACCEL_ZOUT_H) << 8) | MPU_Read(ACCEL_ZOUT_L);
+    //int16_t acc_y = (MPU_Read(ACCEL_YOUT_H) << 8) | MPU_Read(ACCEL_YOUT_L);
+    //int16_t acc_z = (MPU_Read(ACCEL_ZOUT_H) << 8) | MPU_Read(ACCEL_ZOUT_L);
 
-    qDebug() << "Acc raw: " << acc_x << " " << acc_y << " " << acc_z;
+    qDebug() << "Acc raw: " << acc_x ;//<< " " << acc_y << " " << acc_z;
 
     _acc.x = acc_x;
-    _acc.y = acc_y;
-    _acc.z = acc_z;
+    //_acc.y = acc_y;
+    //_acc.z = acc_z;
 }
 
-void MPU9255::MPU_Write(uint8_t reg, uint8_t data){
-    wiringPiI2CWriteReg8(mpu_9255, reg, data);
+void MPU9255::MPU_Write(const uint8_t reg, const uint8_t data, const int dev){
+    wiringPiI2CWriteReg8(dev, reg, data);
 }
 
-uint8_t MPU9255::MPU_Read(uint8_t reg){
-    //qDebug() << "Read reg: "<< reg;
-    uint8_t data = wiringPiI2CReadReg8(mpu_9255, reg);
-    //qDebug() << "read data: "<< data;
+int8_t MPU9255::MPU_Read(const uint8_t reg, const int dev){
+    int8_t data = wiringPiI2CReadReg8(dev, reg);
     return data;
 }
