@@ -10,16 +10,13 @@ MPU9255::MPU9255(int intPin)
     wiringPiI2CWriteReg8(mpu_9255, PWR_MGMT_1, 0x80);
     QThread::msleep(10);
 
+    //check WHO_AM_I register
     uint8_t ID = MPU_Read(WHO_AM_I);
-    //qDebug() << WHO_AM_I << ID << 0x73<<"\n";
-    //QTextStream out(stdout);
-    //out << "stdout works somehow" << std::hex << 0x73 << "\n";
-
     if (ID == 0x73){
         qDebug() << "MPU-9255 ready!";
     }
     else {
-        qDebug() << "[ERROR] WHO_AM_I = " << ID << " not as expected.\n" ;
+        qDebug() << "[ERROR] WHO_AM_I = " << showbase << uppercasedigits << hex << ID << " not as expected.\n" ;
     }
 
 
